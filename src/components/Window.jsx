@@ -3,46 +3,50 @@ import { useComponentState } from '../hooks'
 import { TitleBar } from './'
 
 var currentDrag = null;
+const limitRange = (v, min, max) => Math.min(max, Math.max(min, v))
+const outsideRange = (v, min, max) => v<min || v>max
 
 function Window({ children, style={ }, title, titleBarVisible=true, maximizeVisible=true, minimizeVisible=true, closeVisible=true, onMinimize, onMaximize, onClose,
-width = 500, height=200, minWidth=200, minHeight=150, top=200, left=200, resizeEnabled = true }) {
+width = 500, height=200, minWidth=200, minHeight=150, maxWidth=800, maxHeight=400, top=200, left=200, resizeEnabled = true }) {
   
   const [ state, setState ] = useComponentState({
-    position: { width, height, top, left }
+    width, height, top, left
   })
 
-  const winStyle = {...style, position:'absolute', ...state.position}
+  const winStyle = {...style, position:'absolute', width: state.width, height: state.height, top: state.top, left: state.left}
 
   const posDragChange = (e) => {
     e = e || window.event;
     e.preventDefault();
-    setState({position: {...state.position, top: state.position.top + (e.pageY - currentDrag.dragY), left: state.position.left + (e.pageX - currentDrag.dragX)}})
+    setState({ top: state.top + e.pageY - currentDrag.dragY, left: state.left + e.pageX - currentDrag.dragX})
   }
 
   const resizeDragChange = (e) => {
     e = e || window.event;
     e.preventDefault();
-    setState({position: {...state.position, width: Math.max(minWidth, state.position.width + (e.pageX - currentDrag.dragX)), height: Math.max(minHeight,state.position.height + (e.pageY - currentDrag.dragY))}})
+    setState({ width: limitRange(state.width + e.pageX - currentDrag.dragX, minWidth, maxWidth), height: limitRange(state.height + e.pageY - currentDrag.dragY, minHeight, maxHeight)})
   }
 
   const resizeWidthDragChange = (e) => {
     e = e || window.event;
     e.preventDefault();
-    setState({position: {...state.position, width: Math.max(minWidth, state.position.width + (e.pageX - currentDrag.dragX)) }})
+    var offset = e.pageX - currentDrag.dragX
+    if(outsideRange(state.width + offset, minWidth, maxWidth)) return
+    setState({ width: state.width + offset })
   }
 
   const resizeWidthOffsetDragChange = (e) => {
     e = e || window.event;
     e.preventDefault();
     var offset = e.pageX - currentDrag.dragX
-    if(state.position.width - offset < minWidth) return
-    setState({position: {...state.position, width: state.position.width - offset, left: state.position.left+offset }})
+    if(outsideRange(state.width - offset, minWidth, maxWidth)) return
+    setState({ width: state.width - offset, left: state.left+offset })
   }
 
   const resizeHeightDragChange = (e) => {
     e = e || window.event;
     e.preventDefault();
-    setState({position: {...state.position, height: Math.max(minHeight,state.position.height + (e.pageY - currentDrag.dragY)) }})
+    setState({ height: limitRange(state.height + e.pageY - currentDrag.dragY, minHeight, maxHeight) })
   }
 
   const posDragEnd = (e) => {
