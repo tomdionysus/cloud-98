@@ -5,6 +5,7 @@ import useAppEvents from './useAppEvents'
 import useEvent from './useEvent'
 import useAPI from './useAPI'
 import useStorage from './useStorage'
+import useUniqueID from './useUniqueID'
 
 export {
   useAppState,
@@ -14,4 +15,5 @@ export {
   useEvent,
   useAPI,
   useStorage,
+  useUniqueID,
 }
