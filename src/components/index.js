@@ -7,6 +7,8 @@ import StatusBar from './StatusBar'
 import StatusBarField from './StatusBarField'
 import TreeView from './TreeView'
 import TreeViewNode from './TreeViewNode'
+import Button from './Button'
+import Checkbox from './Checkbox'
 
 export {
 	AppStateProvider,
@@ -19,4 +21,6 @@ export {
 	StatusBarField,
 	TreeView,
 	TreeViewNode,
+	Button,
+	Checkbox,
 }

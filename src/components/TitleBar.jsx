@@ -1,9 +1,7 @@
-import { forwardRef } from 'react';
-
 const stopPropagation = e => e.stopPropagation()
-const TitleBar = forwardRef(function TitleBar({ title="Window Title", maximizeVisible=true, minimizeVisible=true, closeVisible=true, onMinimize, onMaximize, onClose, onMouseDown, onMouseUp }, ref) {
+function TitleBar({ title="Window Title", maximizeVisible=true, minimizeVisible=true, closeVisible=true, onMinimize, onMaximize, onClose, onMouseDown, onMouseUp }) {
   return (
-      <div ref={ref} className="title-bar" onMouseDown={onMouseDown} onMouseUp={onMouseUp}>
+      <div className="title-bar" onMouseDown={onMouseDown} onMouseUp={onMouseUp}>
         <div className="title-bar-text">{title}</div>
         <div className="title-bar-controls">
           {minimizeVisible ? <button aria-label="Minimize" onMouseDown={stopPropagation} onClick={onMinimize}></button>:null}
@@ -12,6 +10,6 @@ const TitleBar = forwardRef(function TitleBar({ title="Window Title", maximizeVi
         </div>
       </div>
   )
-})
+}
 
 export default TitleBar

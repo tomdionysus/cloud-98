@@ -1,4 +1,4 @@
-import { useAppState, useTheme } from '../components/AppStateProvider'
+import { useAppState } from '../components/AppStateProvider'
 import useComponentState from './useComponentState'
 import useDebounce from './useDebounce'
 import useAppEvents from './useAppEvents'
@@ -8,7 +8,6 @@ import useStorage from './useStorage'
 
 export {
   useAppState,
-  useTheme,
   useComponentState,
   useDebounce,
   useAppEvents,

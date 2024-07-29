@@ -3,8 +3,6 @@ import { createContext, useContext, useReducer } from 'react'
 var AppStateContext
 const AppStateDispatchContext = createContext(null)
 
-var initialAppState = null
-
 export default function AppStateProvider({ children }) {
   const [appState, dispatch] = useReducer((o, n) => ({ ...o, ...n }), useContext(AppStateContext))
 
@@ -22,10 +20,5 @@ export function initAppState(obj) {
 }
 
 export function useAppState() {
-  return [useContext(AppStateContext), useContext(AppStateDispatchContext)]
-}
-
-export function useTheme() {
-  const setAppState = useContext(AppStateDispatchContext)
-  return [useContext(AppStateContext).theme, (theme) => setAppState({ theme })]
+  return [ useContext(AppStateContext), useContext(AppStateDispatchContext) ]
 }
