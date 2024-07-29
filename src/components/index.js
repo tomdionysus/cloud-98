@@ -1,3 +1,5 @@
+import AppStateProvider, { initAppState } from './AppStateProvider'
+
 import Window from './Window'
 import WindowBody from './WindowBody'
 import TitleBar from './TitleBar'
@@ -7,6 +9,9 @@ import TreeView from './TreeView'
 import TreeViewNode from './TreeViewNode'
 
 export {
+	AppStateProvider,
+	initAppState,
+
 	Window,
 	WindowBody,
 	TitleBar,

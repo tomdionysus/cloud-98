@@ -1,6 +1,6 @@
 function TreeView({ children }) {
   return (
-    <ul class="tree-view">
+    <ul className="tree-view">
     {children}
     </ul>
   )

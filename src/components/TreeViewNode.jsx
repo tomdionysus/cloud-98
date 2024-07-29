@@ -10,9 +10,8 @@ function TreeViewNode({ children, title, open }) {
       </details>
     )
   } else {
-
     return (
-      <li class="tree-view">
+      <li className="tree-view">
       {title}
       </li>
     )
