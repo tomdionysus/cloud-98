@@ -1,7 +1,7 @@
-function Label({ title }) {
+function Label({ style, title }) {
 
   return (
-     <label>{title}</label>
+     <label style={style}>{title}</label>
   )
 }
 
