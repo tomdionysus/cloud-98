@@ -7,13 +7,13 @@ const limitRange = (v, min, max) => Math.min(max, Math.max(min, v))
 const outsideRange = (v, min, max) => v<min || v>max
 
 function Window({ children, style={ }, title, titleBarVisible=true, maximizeVisible=true, minimizeVisible=true, closeVisible=true, onMinimize, onMaximize, onClose,
-width = 500, height=200, minWidth=200, minHeight=150, maxWidth=800, maxHeight=400, top=200, left=200, resizeEnabled = true }) {
+width = 500, height=300, minWidth, minHeight=150, maxWidth, maxHeight, top=200, left=200, resizeEnabled = true }) {
   
   const [ state, setState ] = useComponentState({
     width, height, top, left
   })
 
-  const winStyle = {...style, position:'absolute', overflow:'hidden', display:'flex', flexDirection:'column', width: state.width, height: state.height, top: state.top, left: state.left}
+  const winStyle = {...style, padding:'-2px', position:'absolute', overflow:'hidden', display:'flex', flexDirection:'column', width: state.width, height: state.height, top: state.top, left: state.left}
 
   const posDragChange = (e) => {
     e = e || window.event;

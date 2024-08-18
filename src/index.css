@@ -1,4 +1,28 @@
 body {
-	background-color: rgb(192, 192, 192);
+	background-color: rgb(56,108,160);
 	user-select: none;
+}
+
+.login-fade {
+	min-height: 8px;
+	display: flex;
+	background: linear-gradient(
+	    to right,
+	    rgb(8, 36, 104),
+	    rgb(56, 108, 160),
+	    rgb(160, 200, 240),
+	    rgb(56, 108, 160),
+	    rgb(8, 36, 104)
+	);
+}
+
+.login-title {
+	background-color: white;
+	min-height: 100px;
+}
+
+.smooth {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
 }

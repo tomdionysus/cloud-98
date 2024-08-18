@@ -13,6 +13,9 @@ import Radiobutton from './Radiobutton'
 import GroupBox from './GroupBox'
 import TextBox from './TextBox'
 import Label from './Label'
+import LoginTitle from './LoginTitle'
+import LoginFade from './LoginFade'
+import Layout from './Layout'
 
 export {
 	AppStateProvider,
@@ -31,4 +34,7 @@ export {
 	GroupBox,
 	TextBox,
 	Label,
+	LoginTitle,
+	LoginFade,
+	Layout,
 }
