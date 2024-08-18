@@ -1,28 +1,30 @@
 import '98.css'
 
+import { useEffect } from 'react'
 import { AppStateProvider, initAppState, Window, TitleBar, WindowBody, StatusBar, StatusBarField, TreeView, TreeViewNode, Button, Checkbox, Radiobutton, GroupBox, TextBox, Label, LoginFade, LoginTitle, Layout } from './components'
-import { LoginScreen } from './screens'
-import { useComponentState, useAppState } from './hooks'
+import { LoginScreen, HomeScreen } from './screens'
+import { useComponentState, useAppState, useAPI } from './hooks'
 
 export default function Main() {
-  const [ state, setState ] = useComponentState({
-    cbValue: {},
-    rbValue: null,
-    rbValue2: null,
-  })
-
   const [appState, setAppState] = useAppState()
+  const api = useAPI()
 
-  const setCbValue = (comp, value) => {
-    state.cbValue[value] = !!!state.cbValue[value]
-    setState({ cbValue: state.cbValue })
-  }  
-
-
-  const setRbValue = (comp, value) => setState({ rbValue: value })
-  const setRbValue2 = (comp, value) => setState({ rbValue2: value })
+  useEffect(()=>{
+    if(appState.route==='preflight') {
+      if (api.hasSession()) {
+        api.getSession((err, session) => {
+          if(err) return setAppState({route: 'login'})
+          setAppState({route: 'home'})
+        })
+      } else{
+        setAppState({route: 'login'})
+      }
+    }
+  })
 
   switch(appState.route) {
     case 'login': return <LoginScreen onLogin={()=>setAppState({route: 'home'})} />
+    case 'home': return <HomeScreen onLogout={()=>setAppState({route: 'login'})} />
+    default: return null
   }
 }

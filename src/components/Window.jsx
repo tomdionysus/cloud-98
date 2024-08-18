@@ -13,7 +13,7 @@ width = 500, height=300, minWidth, minHeight=150, maxWidth, maxHeight, top=200, 
     width, height, top, left
   })
 
-  const winStyle = {...style, padding:'-2px', position:'absolute', overflow:'hidden', display:'flex', flexDirection:'column', width: state.width, height: state.height, top: state.top, left: state.left}
+  const winStyle = {...style, position:'absolute', overflow:'hidden', display:'flex', flexDirection:'column', width: state.width, height: state.height, top: state.top, left: state.left}
 
   const posDragChange = (e) => {
     e = e || window.event;

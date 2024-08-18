@@ -2,7 +2,8 @@ class API {
 	constructor({fetch, apiUrl}) {
 		this.fetch = fetch || window.fetch
 		this.apiUrl = apiUrl || 'http://localhost:8080'
-		this.sessionToken = null;
+		this.sessionToken = localStorage.getItem('sessionToken')
+    this.sessionRefreshToken = localStorage.getItem('sessionRefreshToken');
 	}
 
 	_doCall(method, path, body, callback) {
@@ -27,6 +28,7 @@ class API {
 	        return response.json();
 	    })
 	    .then(data => {
+
 	      callback(null, data, res);
 	    })
 	    .catch(error => {
@@ -34,12 +36,32 @@ class API {
 	    });
 	}
 
+  hasSession() {
+    return !!this.sessionToken
+  }
+
+  getSession(callback) {
+    this._doCall('GET','/v1/session', null, callback)
+  }
+
 	login(email, password, callback) {
 		this._doCall('POST','/v1/session', { email: email, password: password }, (err, data) => {
 			if(err) return callback(err)
-			callback(err)
+      this.sessionToken = data.session.id
+      this.sessionRefreshToken = data.session.refresh_token
+      localStorage.setItem('sessionToken', this.sessionToken)
+      localStorage.setItem('sessionRefreshToken', this.sessionRefreshToken)
+			callback(null, data)
 		})
 	}
+
+  logout(callback) {
+    this._doCall('DELETE','/v1/session', null, callback)
+    localStorage.removeItem('sessionToken')
+    localStorage.removeItem('sessionRefreshToken')
+    delete this.sessionToken
+    delete this.sessionRefreshToken
+  }
 
 }
 

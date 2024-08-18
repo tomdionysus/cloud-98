@@ -14,6 +14,7 @@ import GroupBox from './GroupBox'
 import TextBox from './TextBox'
 import Label from './Label'
 import Layout from './Layout'
+import TaskBar from './TaskBar'
 
 export {
 	AppStateProvider,
@@ -33,4 +34,5 @@ export {
 	TextBox,
 	Label,
 	Layout,
+	TaskBar,
 }

@@ -4,7 +4,7 @@ import { AppStateProvider, initAppState } from './components'
 import Main from './Main'
 
 initAppState({
-  route: 'login',
+  route: 'preflight',
 })
 
 function App() {
