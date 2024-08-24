@@ -1,4 +1,5 @@
-import { Window, WindowBody, Button, TextBox, Label, Layout, TaskBar } from '../../components'
+import { Window, WindowBody, Button, TextBox, Label, Layout, TaskBar, Divider } from '../../components'
+import { VPCWindow } from '../../windows'
 import { useComponentState, useAPI } from '../../hooks'
 
 import './style.css'
@@ -6,8 +7,6 @@ import './style.css'
 export default function HomeScreen({ onLogout }) {
 
   const [state, setState] = useComponentState({
-    email: '',
-    password: '',
     action: 'start',
   })
 
@@ -23,7 +22,9 @@ export default function HomeScreen({ onLogout }) {
     <>
     <TaskBar>
         <Button onClick={handleLogout}>cloud98</Button>
+        <Divider />
     </TaskBar>
+        <VPCWindow />
     </>
   )
 }

@@ -15,6 +15,7 @@ import TextBox from './TextBox'
 import Label from './Label'
 import Layout from './Layout'
 import TaskBar from './TaskBar'
+import Divider from './Divider'
 
 export {
 	AppStateProvider,
@@ -35,4 +36,5 @@ export {
 	Label,
 	Layout,
 	TaskBar,
+	Divider,
 }

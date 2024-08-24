@@ -28,7 +28,6 @@ class API {
 	        return response.json();
 	    })
 	    .then(data => {
-
 	      callback(null, data, res);
 	    })
 	    .catch(error => {
@@ -61,6 +60,13 @@ class API {
     localStorage.removeItem('sessionRefreshToken')
     delete this.sessionToken
     delete this.sessionRefreshToken
+  }
+
+  getVPC(callback) {
+    this._doCall('GET','/v1/vpc', null, (err, data) => {
+      if(err) return callback(err)
+      return callback(null, data.vpc)
+    })
   }
 
 }

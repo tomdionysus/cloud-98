@@ -16,7 +16,9 @@ export default function Main() {
           if(err) return setAppState({route: 'login'})
           setAppState({route: 'home'})
         })
-      } else{
+        setAppState({route: 'get_session'})
+        appState.route = null;
+      } else {
         setAppState({route: 'login'})
       }
     }
