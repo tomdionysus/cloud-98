@@ -1,4 +1,7 @@
+import "./TitleBar.css"
+
 const stopPropagation = e => e.stopPropagation()
+
 function TitleBar({ title="Window Title", maximizeVisible=true, minimizeVisible=true, closeVisible=true, onMinimize, onMaximize, onClose, onMouseDown, onMouseUp }) {
   return (
       <div className="title-bar" onMouseDown={onMouseDown} onMouseUp={onMouseUp}>

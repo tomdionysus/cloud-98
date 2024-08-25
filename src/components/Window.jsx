@@ -2,12 +2,16 @@ import { createElement } from 'react'
 import { useComponentState } from '../hooks'
 import { TitleBar } from './'
 
-var currentDrag = null;
-const limitRange = (v, min, max) => Math.min(max, Math.max(min, v))
+var currentDrag = null
+const limitRange = (v, min, max) => {
+  if(min && v<min) return min
+  if(max && v>max) return max
+  return v
+}
 const outsideRange = (v, min, max) => v<min || v>max
 
 function Window({ children, visible=true, style={ }, title, titleBarVisible=true, maximizeVisible=true, minimizeVisible=true, closeVisible=true, onMinimize, onMaximize, onClose,
-width = 500, height=300, minWidth, minHeight=150, maxWidth, maxHeight, top=200, left=200, resizeEnabled = true }) {
+width = 500, height=300, minWidth=150, minHeight=150, maxWidth, maxHeight, top=200, left=200, resizeEnabled = true }) {
 
   const [ state, setState ] = useComponentState({
     width, height, top, left
@@ -26,15 +30,16 @@ width = 500, height=300, minWidth, minHeight=150, maxWidth, maxHeight, top=200, 
   const resizeDragChange = (e) => {
     e = e || window.event;
     e.preventDefault();
-    setState({ width: limitRange(state.width + e.pageX - currentDrag.dragX, minWidth, maxWidth), height: limitRange(state.height + e.pageY - currentDrag.dragY, minHeight, maxHeight)})
+    var offsetX = e.pageX - currentDrag.dragX
+    var offsetY = e.pageY - currentDrag.dragY
+    setState({ width: limitRange(state.width + offsetX, minWidth, maxWidth), height: limitRange(state.height + offsetY, minHeight, maxHeight) })
   }
 
   const resizeWidthDragChange = (e) => {
     e = e || window.event;
     e.preventDefault();
-    var offset = e.pageX - currentDrag.dragX
-    if(outsideRange(state.width + offset, minWidth, maxWidth)) return
-    setState({ width: state.width + offset })
+    var offsetX = e.pageX - currentDrag.dragX
+    setState({ width: limitRange(state.width + offsetX, minWidth, maxWidth) })
   }
 
   const resizeWidthOffsetDragChange = (e) => {
@@ -48,7 +53,8 @@ width = 500, height=300, minWidth, minHeight=150, maxWidth, maxHeight, top=200, 
   const resizeHeightDragChange = (e) => {
     e = e || window.event;
     e.preventDefault();
-    setState({ height: limitRange(state.height + e.pageY - currentDrag.dragY, minHeight, maxHeight) })
+    var offsetY = e.pageY - currentDrag.dragY
+    setState({ height: limitRange(state.height + offsetY, minHeight, maxHeight) })
   }
 
   const posDragEnd = (e) => {
