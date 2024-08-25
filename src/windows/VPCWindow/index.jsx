@@ -4,7 +4,7 @@ import { useComponentState, useAPI } from '../../hooks'
 
 import './style.css'
 
-export default function VPCWindow({ onClose }) {
+export default function VPCWindow(props) {
 
   const [state, setState] = useComponentState({
     vpcs: [],
@@ -37,7 +37,7 @@ export default function VPCWindow({ onClose }) {
   }
 
   return (
-    <Window title='Virtual Private Clouds (VPCs)' onClose={onClose} width={450} height={240}>
+    <Window title='Virtual Private Clouds (VPCs)' {...props}>
       <WindowBody>
       {state.action==='display' ? (
         <>

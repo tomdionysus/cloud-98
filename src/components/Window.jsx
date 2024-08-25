@@ -71,7 +71,7 @@ width = 500, height=300, minWidth, minHeight=150, maxWidth, maxHeight, top=200, 
   return (
     <div className="window" style={winStyle}>
       {titleBarVisible ? (
-        <TitleBar title={title} onMouseDown={e=>dragStart(e, posDragChange)}/>
+        <TitleBar title={title} onMouseDown={e=>dragStart(e, posDragChange)} onMinimize={onMinimize} onMaximize={onMaximize} onClose={onClose}/>
       ):null} 
       {children}
       {resizeEnabled ? (

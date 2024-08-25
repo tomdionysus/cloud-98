@@ -3,7 +3,7 @@ import { useComponentState, useAPI } from '../../hooks'
 
 import './style.css'
 
-import CloudSvg from "./clouds.svg"
+import CloudSvg from "../../assets/clouds.svg"
 
 export default function LoginScreen({ onLogin }) {
 
@@ -50,7 +50,7 @@ export default function LoginScreen({ onLogin }) {
     </Layout>
       </Layout>
     <Layout style={{position:'absolute', bottom: '10px', right: '20px'}}>
-      <Button onClick={handleLogin}>Login</Button>
+      <Button onClick={handleLogin} disabled={state.email.length===0 || state.password.length===0}>Login</Button>
     </Layout>
     </>)
     break;
