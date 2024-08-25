@@ -1,4 +1,4 @@
-import { createElement } from 'react'
+import { useCallback } from 'react'
 import { useComponentState } from '../hooks'
 import { TitleBar } from './'
 
@@ -9,70 +9,69 @@ const limitRange = (v, min, max) => {
   return v
 }
 const outsideRange = (v, min, max) => v<min || v>max
+const posDragEnd = (e) => {
+  e = e || window.event;
+  e.preventDefault()
+  currentDrag = null
+  document.onmouseup = null;
+  document.onmousemove = null;
+}
 
-function Window({ children, visible=true, style={ }, title, titleBarVisible=true, maximizeVisible=true, minimizeVisible=true, closeVisible=true, onMinimize, onMaximize, onClose,
+const dragStart = (e, handler)=>{
+  if(currentDrag) return
+  e = e || window.event;
+  e.preventDefault()
+  currentDrag = { dragX: e.pageX, dragY: e.pageY }
+  document.onmouseup = posDragEnd;
+  document.onmousemove = handler;
+}
+
+export default function Window({ children, visible=true, style={ }, title, titleBarVisible=true, maximizeVisible=true, minimizeVisible=true, closeVisible=true, onMinimize, onMaximize, onClose,
 width = 500, height=300, minWidth=150, minHeight=150, maxWidth, maxHeight, top=200, left=200, resizeEnabled = true }) {
 
   const [ state, setState ] = useComponentState({
     width, height, top, left
   })
 
-  if(!visible) return null
-
-  const winStyle = {...style, position:'absolute', overflow:'hidden', display:'flex', flexDirection:'column', width: state.width, height: state.height, top: state.top, left: state.left}
-
-  const posDragChange = (e) => {
+  const posDragChange = useCallback((e) => {
     e = e || window.event;
     e.preventDefault();
     setState({ top: state.top + e.pageY - currentDrag.dragY, left: state.left + e.pageX - currentDrag.dragX})
-  }
+  })
 
-  const resizeDragChange = (e) => {
+  const resizeDragChange = useCallback((e) => {
     e = e || window.event;
     e.preventDefault();
     var offsetX = e.pageX - currentDrag.dragX
     var offsetY = e.pageY - currentDrag.dragY
     setState({ width: limitRange(state.width + offsetX, minWidth, maxWidth), height: limitRange(state.height + offsetY, minHeight, maxHeight) })
-  }
+  })
 
-  const resizeWidthDragChange = (e) => {
+  const resizeWidthDragChange = useCallback((e) => {
     e = e || window.event;
     e.preventDefault();
     var offsetX = e.pageX - currentDrag.dragX
     setState({ width: limitRange(state.width + offsetX, minWidth, maxWidth) })
-  }
+  })
 
-  const resizeWidthOffsetDragChange = (e) => {
+  const resizeWidthOffsetDragChange = useCallback((e) => {
     e = e || window.event;
     e.preventDefault();
     var offset = e.pageX - currentDrag.dragX
     if(outsideRange(state.width - offset, minWidth, maxWidth)) return
     setState({ width: state.width - offset, left: state.left+offset })
-  }
+  })
 
-  const resizeHeightDragChange = (e) => {
+  const resizeHeightDragChange = useCallback((e) => {
     e = e || window.event;
     e.preventDefault();
     var offsetY = e.pageY - currentDrag.dragY
     setState({ height: limitRange(state.height + offsetY, minHeight, maxHeight) })
-  }
+  })
 
-  const posDragEnd = (e) => {
-    e = e || window.event;
-    e.preventDefault()
-    currentDrag = null
-    document.onmouseup = null;
-    document.onmousemove = null;
-  }
+  if(!visible) return null
 
-  const dragStart = (e, handler)=>{
-    if(currentDrag) return
-    e = e || window.event;
-    e.preventDefault()
-    currentDrag = { dragX: e.pageX, dragY: e.pageY }
-    document.onmouseup = posDragEnd;
-    document.onmousemove = handler;
-  }
+  const winStyle = {...style, position:'absolute', overflow:'hidden', display:'flex', flexDirection:'column', width: state.width, height: state.height, top: state.top, left: state.left}
 
   return (
     <div className="window" style={winStyle}>
@@ -93,5 +92,3 @@ width = 500, height=300, minWidth=150, minHeight=150, maxWidth, maxHeight, top=2
     </div>
   )
 }
-
-export default Window

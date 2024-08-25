@@ -1,6 +1,5 @@
 .divider.vertical {
-	width: 3px;
-	background-color: red;
+	width: 4px;
 	min-height: 23px;
 	margin: 0px 4px 0px 4px;
 	box-shadow: inset -1px -1px #0a0a0a,inset 1px 1px #fff,inset -2px -2px grey,inset 2px 2px #dfdfdf;
