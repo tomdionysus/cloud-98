@@ -37,7 +37,7 @@ width = 500, height=300, minWidth=150, minHeight=150, maxWidth, maxHeight, top=2
     e = e || window.event;
     e.preventDefault();
     setState({ top: state.top + e.pageY - currentDrag.dragY, left: state.left + e.pageX - currentDrag.dragX})
-  })
+  }, [ setState, state.left, state.top ])
 
   const resizeDragChange = useCallback((e) => {
     e = e || window.event;
@@ -45,14 +45,14 @@ width = 500, height=300, minWidth=150, minHeight=150, maxWidth, maxHeight, top=2
     var offsetX = e.pageX - currentDrag.dragX
     var offsetY = e.pageY - currentDrag.dragY
     setState({ width: limitRange(state.width + offsetX, minWidth, maxWidth), height: limitRange(state.height + offsetY, minHeight, maxHeight) })
-  })
+  }, [ setState, minHeight, maxHeight, minWidth, maxWidth, state.height, state.width ])
 
   const resizeWidthDragChange = useCallback((e) => {
     e = e || window.event;
     e.preventDefault();
     var offsetX = e.pageX - currentDrag.dragX
     setState({ width: limitRange(state.width + offsetX, minWidth, maxWidth) })
-  })
+  }, [ setState, maxWidth, minWidth, state.width ])
 
   const resizeWidthOffsetDragChange = useCallback((e) => {
     e = e || window.event;
@@ -60,14 +60,14 @@ width = 500, height=300, minWidth=150, minHeight=150, maxWidth, maxHeight, top=2
     var offset = e.pageX - currentDrag.dragX
     if(outsideRange(state.width - offset, minWidth, maxWidth)) return
     setState({ width: state.width - offset, left: state.left+offset })
-  })
+  }, [ setState, maxWidth, minWidth, state.left, state.width ])
 
   const resizeHeightDragChange = useCallback((e) => {
     e = e || window.event;
     e.preventDefault();
     var offsetY = e.pageY - currentDrag.dragY
     setState({ height: limitRange(state.height + offsetY, minHeight, maxHeight) })
-  })
+  }, [ setState, maxHeight, minHeight, state.height ])
 
   if(!visible) return null
 

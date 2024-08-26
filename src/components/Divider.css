@@ -4,3 +4,9 @@
 	margin: 0px 4px 0px 4px;
 	box-shadow: inset -1px -1px #0a0a0a,inset 1px 1px #fff,inset -2px -2px grey,inset 2px 2px #dfdfdf;
 }
+
+.divider.horizontal {
+	height: 4px;
+	margin: 4px 4px 4px 4px;
+	box-shadow: inset -1px -1px #0a0a0a,inset 1px 1px #fff,inset -2px -2px grey,inset 2px 2px #dfdfdf;
+}

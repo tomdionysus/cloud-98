@@ -1,0 +1,7 @@
+.menu {
+	position: absolute;
+	z-index: 900;
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+}

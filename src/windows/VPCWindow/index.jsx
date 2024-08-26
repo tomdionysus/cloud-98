@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { Window, WindowBody, Button, TreeView, TreeViewNode, Label, Layout, TaskBar } from '../../components'
+import { Window, WindowBody, TreeView, TreeViewNode } from '../../components'
 import { useComponentState, useAPI } from '../../hooks'
 
 import './style.css'

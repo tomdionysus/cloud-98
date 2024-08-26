@@ -1,5 +1,3 @@
-import { Window, WindowBody, Button, TextBox, Label, Layout } from './'
-
 import "./TaskBar.css"
 
 function TaskBar({ style, children }) {
