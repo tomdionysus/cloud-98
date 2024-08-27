@@ -45,16 +45,16 @@ export default function HomeScreen({ onLogout }) {
     setState({ tasks })
   }
 
-  const selectTask = (id, obj) => {
-    if(!state.tasks[id]) return
-    // console.log(state.tasks[id],'selected')
+  const selectTask = (id) => {
     var tasks = {...state.tasks}
     for(let t of Object.keys(tasks)) { tasks[t].active = false }
-    tasks[id].active = true
-    tasks[id].minimized = false
-    tasks[id].zIndex = 801
+    if(state.tasks[id]) {
+      tasks[id].active = true
+      tasks[id].minimized = false
+      tasks[id].zIndex = 801
+    }
     reorderZIndex(tasks)
-    setState({ tasks })
+    setState({ tasks, beginMenuVisible: false })
   }
 
   const closeTask = (id) => {
@@ -72,25 +72,25 @@ export default function HomeScreen({ onLogout }) {
   }
 
   return (
-    <Screen>
-        <TaskBar>
-            <Button style={{display:'flex', flexDirection:'row', gap: '5px', alignItems:'center',fontWeight:'bold'}} onClick={()=>setState({ beginMenuVisible: !state.beginMenuVisible })}>
-            <img src={CloudSvg} height="14px" alt="cloud98 Logo"/>Begin</Button>
-            <Divider />
-            {taskBarRender}
-        </TaskBar>
-        <Menu visible={state.beginMenuVisible} bottom="30px" left="2px" width="250px" onClose={()=>setState({ beginMenuVisible: false })}>
-          <MenuItem title="Components" onMouseOver={()=>setState({ componentsMenuVisible: true })} onMouseOut={()=>setState({ componentsMenuVisible: false })} >
-            <Menu visible={state.componentsMenuVisible} left="250px" bottom="30px" width="250px" height="250px">
-              <MenuItem title="VPCs"></MenuItem>
-            </Menu>
-          </MenuItem>
-          <MenuItem title="Nodes"></MenuItem>
-          <MenuItem title="Account"></MenuItem>
-          <Divider direction='horizontal'/>
-          <MenuItem title="Log Out" onClick={handleLogout}></MenuItem>
-        </Menu>
-        {windowRender}
+    <Screen onBackgroundClick={()=>{ selectTask(null) }}>
+      <TaskBar>
+          <Button style={{display:'flex', flexDirection:'row', gap: '5px', alignItems:'center',fontWeight:'bold'}} onClick={()=>setState({ beginMenuVisible: !state.beginMenuVisible })}>
+          <img src={CloudSvg} height="14px" alt="cloud98 Logo"/>Begin</Button>
+          <Divider />
+          {taskBarRender}
+      </TaskBar>
+      <Menu visible={state.beginMenuVisible} bottom="30px" left="2px" width="250px" onClose={()=>setState({ beginMenuVisible: false })}>
+        <MenuItem title="Components" onMouseOver={()=>setState({ componentsMenuVisible: true })} onMouseOut={()=>setState({ componentsMenuVisible: false })} >
+          <Menu visible={state.componentsMenuVisible} left="250px" bottom="30px" width="250px" height="250px">
+            <MenuItem title="VPCs"></MenuItem>
+          </Menu>
+        </MenuItem>
+        <MenuItem title="Nodes"></MenuItem>
+        <MenuItem title="Account"></MenuItem>
+        <Divider direction='horizontal'/>
+        <MenuItem title="Log Out" onClick={handleLogout}></MenuItem>
+      </Menu>
+      {windowRender}
     </Screen>
   )
 }

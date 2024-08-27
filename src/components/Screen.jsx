@@ -1,14 +1,9 @@
-import { useAppEvents } from '../hooks'
-
 import "./Screen.css"
 
-export default function Screen({ style, children }) {
-
-  const events = useAppEvents()
-
+export default function Screen({ style, children, onBackgroundClick }) {
   const handleClick = (event) => {
       if (event.target === event.currentTarget) {
-          events.emit('screenclick')
+        onBackgroundClick && onBackgroundClick()
       }
   };
 
