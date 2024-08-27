@@ -1,0 +1,15 @@
+.task {
+	text-align:  left;
+	font-weight: bold;
+	width: 150px;
+}
+
+.task.active {
+	background: linear-gradient(
+	    to right,
+	    rgb(8, 36, 104),
+	    rgb(56, 108, 160),
+	    rgb(160, 200, 240)
+	);
+	color: white;
+}

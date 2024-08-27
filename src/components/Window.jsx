@@ -13,25 +13,26 @@ const posDragEnd = (e) => {
   e = e || window.event;
   e.preventDefault()
   currentDrag = null
-  document.onmouseup = null;
-  document.onmousemove = null;
+  document.onmouseup = null
+  document.onmousemove = null
 }
 
-const dragStart = (e, handler)=>{
-  if(currentDrag) return
-  e = e || window.event;
-  e.preventDefault()
-  currentDrag = { dragX: e.pageX, dragY: e.pageY }
-  document.onmouseup = posDragEnd;
-  document.onmousemove = handler;
-}
-
-export default function Window({ children, visible=true, style={ }, title, titleBarVisible=true, maximizeVisible=true, minimizeVisible=true, closeVisible=true, onMinimize, onMaximize, onClose,
+export default function Window({ children, visible=true, active, style, title, titleBarVisible=true, maximizeVisible=true, minimizeVisible=true, closeVisible=true, onMinimize, onMaximize, onClose, onFocus,
 width = 500, height=300, minWidth=150, minHeight=150, maxWidth, maxHeight, top=200, left=200, resizeEnabled = true }) {
 
   const [ state, setState ] = useComponentState({
     width, height, top, left
   })
+
+  const dragStart = (e, handler)=>{
+    if(currentDrag) return
+    e = e || window.event;
+    e.preventDefault()
+    currentDrag = { dragX: e.pageX, dragY: e.pageY }
+    document.onmouseup = posDragEnd
+    document.onmousemove = handler
+    onFocus && onFocus()
+  }
 
   const posDragChange = useCallback((e) => {
     e = e || window.event;
@@ -74,9 +75,9 @@ width = 500, height=300, minWidth=150, minHeight=150, maxWidth, maxHeight, top=2
   const winStyle = {...style, position:'absolute', overflow:'hidden', display:'flex', flexDirection:'column', width: state.width, height: state.height, top: state.top, left: state.left}
 
   return (
-    <div className="window" style={winStyle}>
+    <div className="window" style={winStyle} onClick={onFocus}>
       {titleBarVisible ? (
-        <TitleBar title={title} onMouseDown={e=>dragStart(e, posDragChange)} onMinimize={onMinimize} onMaximize={onMaximize} onClose={onClose}/>
+        <TitleBar title={title} active={active} onMouseDown={e=>dragStart(e, posDragChange)} onMinimize={onMinimize} onMaximize={onMaximize} onClose={onClose}/>
       ):null} 
       {children}
       {resizeEnabled ? (
