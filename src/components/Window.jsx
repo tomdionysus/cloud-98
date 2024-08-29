@@ -2,6 +2,8 @@ import { useCallback } from 'react'
 import { useComponentState } from '../hooks'
 import { TitleBar } from './'
 
+import "./Window.css"
+
 var currentDrag = null
 const limitRange = (v, min, max) => {
   if(min && v<min) return min
@@ -72,7 +74,7 @@ width = 500, height=300, minWidth=150, minHeight=150, maxWidth, maxHeight, top=2
 
   if(!visible) return null
 
-  const winStyle = {...style, position:'absolute', overflow:'hidden', display:'flex', flexDirection:'column', width: state.width, height: state.height, top: state.top, left: state.left}
+  const winStyle = {...style, width: state.width, height: state.height, top: state.top, left: state.left}
 
   return (
     <div className="window" style={winStyle} onClick={onFocus}>

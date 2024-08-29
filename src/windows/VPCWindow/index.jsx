@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { Window, WindowBody, TreeView, TreeViewNode } from '../../components'
+import { Window, WindowBody, TreeView, TreeViewNode, Label, SplitPane } from '../../components'
 import { useComponentState, useAPI } from '../../hooks'
 
 import './style.css'
@@ -38,13 +38,13 @@ export default function VPCWindow(props) {
 
   return (
     <Window title='Virtual Private Clouds (VPCs)' {...props}>
-      <WindowBody>
       {state.action==='display' ? (
-        <>
-        <TreeView>{render}</TreeView>
-        </>
+        <SplitPane minLeft={100} left={
+          <TreeView>{render}</TreeView>
+        } right={
+          <Label title="Right" />
+        } />
       ):null}
-      </WindowBody>
     </Window>
   )
 }

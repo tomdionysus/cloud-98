@@ -19,6 +19,7 @@ import Divider from './Divider'
 import Menu from './Menu'
 import MenuItem from './MenuItem'
 import Screen from './Screen'
+import SplitPane from './SplitPane'
 
 export {
 	AppStateProvider,
@@ -43,4 +44,5 @@ export {
 	Menu,
 	MenuItem,
 	Screen,
+	SplitPane,
 }

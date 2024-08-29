@@ -1,0 +1,12 @@
+.window {
+	position: absolute;
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+	justify-content: stretch;
+	align-items: stretch;
+}
+
+.tree-view {
+	
+}

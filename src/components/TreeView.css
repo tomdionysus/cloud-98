@@ -1,0 +1,11 @@
+.tree-view-container {
+  background-color: white;
+  height: 100%;
+  box-shadow: inset -1px -1px #fff,inset 1px 1px grey,inset -2px -2px #dfdfdf,inset 2px 2px #0a0a0a;
+}
+
+ul.tree-view {
+  box-shadow: none;
+  margin: 2px;
+  padding: 4px;
+}

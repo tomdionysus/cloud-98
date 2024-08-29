@@ -1,0 +1,30 @@
+.split-pane {
+	display: flex;
+	flex-direction: row;
+	justify-content: stretch;
+	align-items: stretch;
+}
+
+.split-pane .left {
+}
+
+.split-pane .right {
+}
+
+.split-pane .divider {
+	min-width: 8px;
+	max-width: 8px;
+	cursor: ew-resize;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 5px;
+}
+
+.split-pane .divider .handle {
+	width: 3px;
+	height: 3px;
+	cursor: ew-resize;
+    box-shadow: inset -1px -1px #fff,inset 1px 1px grey,inset -2px -2px #dfdfdf,inset 2px 2px #0a0a0a;
+}

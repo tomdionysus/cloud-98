@@ -1,9 +1,12 @@
-function TreeView({ children }) {
+import "./TreeView.css"
+
+export default function TreeView({ children }) {
   return (
-    <ul className="tree-view">
-    {children}
-    </ul>
+    <div className="tree-view-container">
+      <ul className="tree-view">
+      {children}
+      </ul>
+    </div>
   )
 }
 
-export default TreeView
